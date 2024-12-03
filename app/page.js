@@ -1,95 +1,103 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client"; // Hacemos que este archivo sea un Client Component
+
+import React, { useState } from 'react';
+import { Divider, Badge, Button, Paper, Box, Typography } from '@mui/material';
 
 export default function Home() {
-  return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol>
-          <li>
-            Get started by editing <code>app/page.js</code>.
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const [notificaciones, setNotificaciones] = useState(3);
+  const [mensajes, setMensajes] = useState(5);
 
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  const agregarNotificacion = () => setNotificaciones(notificaciones + 1);
+  const agregarMensaje = () => setMensajes(mensajes + 1);
+
+  return (
+    <Box sx={{ padding: '40px', fontFamily: 'Roboto, sans-serif' }}>
+      <Typography variant="h3" component="h1" gutterBottom align="center" sx={{ color: '#3f51b5' }}>
+        Práctica: Divider y Badge
+      </Typography>
+
+      {/* Divider con texto */}
+      <Divider
+        sx={{
+          margin: '20px 0',
+          borderColor: '#3f51b5',
+          borderWidth: '3px',
+          fontWeight: 'bold',
+        }}
+        textAlign="left"
+      >
+        <Typography variant="h6">Panel de Notificaciones</Typography>
+      </Divider>
+
+      <Typography variant="body1" paragraph>
+        Administra tus mensajes y alertas usando los botones interactivos:
+      </Typography>
+
+      {/* Sección de Mensajes */}
+      <Paper sx={{ padding: '20px', backgroundColor: '#f5f5f5', borderRadius: '8px', boxShadow: 3 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Badge badgeContent={mensajes} color="primary">
+            <Typography variant="h6" sx={{ fontSize: '20px' }}>
+              Mensajes
+            </Typography>
+          </Badge>
+          <Button
+            variant="contained"
+            color="primary"
+            sx={{
+              borderRadius: '20px',
+              textTransform: 'none',
+              '&:hover': {
+                backgroundColor: '#303f9f',
+              },
+            }}
+            onClick={agregarMensaje}
           >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.secondary}
+            Agregar Mensaje
+          </Button>
+        </Box>
+      </Paper>
+
+      {/* Divider para separar secciones */}
+      <Divider sx={{ margin: '20px 0', borderColor: '#3f51b5', borderWidth: '3px' }} />
+
+      {/* Sección de Notificaciones */}
+      <Paper sx={{ padding: '20px', backgroundColor: '#f5f5f5', borderRadius: '8px', boxShadow: 3 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Badge badgeContent={notificaciones} color="secondary">
+            <Typography variant="h6" sx={{ fontSize: '20px' }}>
+              Notificaciones
+            </Typography>
+          </Badge>
+          <Button
+            variant="contained"
+            color="secondary"
+            sx={{
+              borderRadius: '20px',
+              textTransform: 'none',
+              '&:hover': {
+                backgroundColor: '#c2185b',
+              },
+            }}
+            onClick={agregarNotificacion}
           >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className={styles.footer}>
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+            Agregar Notificación
+          </Button>
+        </Box>
+      </Paper>
+
+      {/* Divider para separar las secciones finales */}
+      <Divider sx={{ margin: '20px 0', borderColor: '#3f51b5', borderWidth: '3px' }} />
+
+      <Typography variant="h4" gutterBottom>
+        Resumen
+      </Typography>
+      <Typography variant="body1" paragraph>
+        Total de mensajes: <strong>{mensajes}</strong>
+      </Typography>
+      <Typography variant="body1" paragraph>
+        Total de notificaciones: <strong>{notificaciones}</strong>
+      </Typography>
+    </Box>
   );
 }
